@@ -10,16 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Use stable version of checkout action
+        uses: actions/checkout@master
 
       - name: Run CII tests
         uses: docker://difi/vefa-validator:latest
         with:
           args: build -x -t -p cii /github/workspace
 
-      - name: Run UBL validation on all invoices
-        run: |
-          for file in ${GITHUB_WORKSPACE}/invoices/*.xml; do
-            echo "Validating $(basename $file)"
-            docker run -v ${GITHUB_WORKSPACE}/invoices:/invoices difi/vefa-validator:latest validate "/invoices/$(basename $file)" || exit 1
-          done
+      - name: Run UBL tests
+        uses: docker://difi/vefa-validator:latest
+        with:
+          args: build -x -t -p ubl /github/workspace
