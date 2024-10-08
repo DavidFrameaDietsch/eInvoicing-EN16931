@@ -17,7 +17,7 @@ jobs:
         with:
           args: build -x -t -p cii /github/workspace
 
-      - name: Run UBL tests
-        uses: docker://difi/vefa-validator:latest
-        with:
-          args: build -x -t -p ubl /github/workspace
+- name: Run UBL validation
+  run: |
+    docker run -v ${{ github.workspace }}:/validation difi/vefa-validator:latest /validation/invoice.xml || exit 1
+
