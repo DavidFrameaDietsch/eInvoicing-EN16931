@@ -15,9 +15,9 @@ jobs:
       - name: Run CII tests
         uses: docker://difi/vefa-validator:latest
         with:
-          args: build -x -t -p cii /github/workspace/invoices
+          args: build -x -t -p cii /github/workspace
 
       - name: Run UBL tests
         uses: docker://difi/vefa-validator:latest
         with:
-          args: build -x -t -p ubl /github/workspace/invoices
+          args: build -x -t -p ubl /github/workspace
